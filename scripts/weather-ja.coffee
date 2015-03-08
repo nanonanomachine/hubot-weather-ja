@@ -45,9 +45,10 @@ module.exports = (robot) ->
     ], (err, result) ->
       throw new Error('err catched.') if err
       forecastTime = new Date(result.publicTime)
+      tempInfo = ""
 
       if result.forecasts[0].temperature.max isnt null
-        tempInfo = "最高気温 : #{result.forecasts[0].temperature.max.celsius}℃\n"
+        tempInfo += "最高気温 : #{result.forecasts[0].temperature.max.celsius}℃\n"
       if result.forecasts[0].temperature.min isnt null
         tempInfo += "最低気温 : #{result.forecasts[0].temperature.min.celsius}℃\n"
 
