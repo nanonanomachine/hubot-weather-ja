@@ -45,9 +45,16 @@ module.exports = (robot) ->
     ], (err, result) ->
       throw new Error('err catched.') if err
       forecastTime = new Date(result.publicTime)
+
+      if result.forecasts[0].temperature.max isnt null
+        tempInfo = "最高気温 : #{result.forecasts[0].temperature.max.celsius}℃\n"
+      if result.forecasts[0].temperature.min isnt null
+        tempInfo += "最低気温 : #{result.forecasts[0].temperature.min.celsius}℃\n"
+
       text = "【お天気情報 #{place}】\n" +
       "■  #{forecastTime.toFormat("YYYY年MM月DD日HH24時MI分")}の予報です\n" +
       "予報 : #{result.forecasts[0].telop}\n" +
+      tempInfo +
       "#{result.description.text}\n" +
       "詳しい情報は下記を参照\n\n" +
       "#{result.link}"
