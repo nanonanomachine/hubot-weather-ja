@@ -40,9 +40,16 @@ module.exports = (robot) ->
           return
         result = JSON.parse(body)
         forecastTime = new Date(result.publicTime)
+        tempInfo = ""
+				if result.forecasts[0].temperature.max isnt null
+        	tempInfo += "最高気温 : #{result.forecasts[0].temperature.max.celsius}℃\n"
+      	if result.forecasts[0].temperature.min isnt null
+        	tempInfo += "最低気温 : #{result.forecasts[0].temperature.min.celsius}℃\n"
+
         msg.send "【お天気情報 #{place}】\n" +
         "■  #{dateFormat(forecastTime, "yyyy年mm月dd日HH時MM分")}の予報です\n" +
         "予報 : #{result.forecasts[0].telop}\n" +
+				tempInfo +
         "#{result.description.text}\n" +
         "詳しい情報は下記を参照\n\n" +
         "#{result.link}"
